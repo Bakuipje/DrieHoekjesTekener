@@ -1,6 +1,8 @@
 #include "Texture.h"
 #include "Renderer.h"
 
+#include <algorithm>
+
 Texture::Texture()
 {
 	m_Texture = NULL;
@@ -24,6 +26,7 @@ Texture::~Texture()
 void Texture::SetPixel(int x, int y, Color col, bool ignoreUpdateStatus)
 {
 	int pixelId = x + (y*m_Width);
+	pixelId = std::max(0, std::min(pixelId, (m_Width*m_Height)-1));
 	SetPixel(pixelId, col, ignoreUpdateStatus);
 }
 

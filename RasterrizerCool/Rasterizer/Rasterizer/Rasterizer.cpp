@@ -17,8 +17,8 @@
 #include "Line.h"
 
 
-#define SCREEN_WIDTH 300
-#define SCREEN_HEIGHT 300
+#define SCREEN_WIDTH 1280
+#define SCREEN_HEIGHT 720
 
 
 
@@ -94,6 +94,7 @@ int main(int argc, char* args[])
 	scene->AddCamera(cam);
 	scene->AddLine(new Line(glm::vec3(1, 1, 0), glm::vec3(SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1, 0), Color(0,0,255), Color(255, 0, 0)));
 	scene->AddLine(new Line(glm::vec3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0), glm::vec3(SCREEN_WIDTH , SCREEN_HEIGHT /2, 0), Color(255, 0, 255), Color(0, 255, 0)));
+	scene->AddLine(new Line(glm::vec3(0, SCREEN_HEIGHT / 2, 0), glm::vec3(SCREEN_WIDTH/2, SCREEN_HEIGHT / 2, 0), Color(0, 255,255), Color(255, 0,255)));
 
 
 	glm::mat4 meshTransform = glm::mat4(1);
