@@ -42,7 +42,7 @@ void Line::Render(Texture* texture)
 		{
 			glm::vec4 test = startColor.Get() - deltaColor * (float)i;
 			Color pixelCol = Color(startColor.Get() - deltaColor * (float)i);
-			texture->SetPixel(linePixels[i].x, linePixels[i].y, pixelCol);
+			texture->SetPixel(linePixels[i].y, linePixels[i].x, pixelCol);
 		}
 	}
 

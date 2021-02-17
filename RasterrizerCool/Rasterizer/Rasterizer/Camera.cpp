@@ -11,7 +11,7 @@ Camera::Camera(float planeDistance, int renderWidth, int renderHeight, glm::mat4
 	this->SetRenderResolution(renderWidth, renderHeight);
 }
 
-void Camera::Render(std::vector<Line*> lines, Texture &texture)
+void Camera::Render(std::vector<Line*> lines, std::vector<Triangle*> triangles, Texture &texture)
 {
 
 	for (auto &line : lines)
@@ -19,6 +19,10 @@ void Camera::Render(std::vector<Line*> lines, Texture &texture)
 		line->Render(&texture);
 	}
 
+	for (auto &triangle : triangles)
+	{
+		triangle->RenderLine(&texture);
+	}
 
 	texture.SetNeedsUpdate();
 }

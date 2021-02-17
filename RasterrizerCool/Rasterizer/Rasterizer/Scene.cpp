@@ -1,3 +1,4 @@
+#include "Triangle.h"
 #include "Scene.h"
 
 void Scene::AddCamera(Camera* camera)
@@ -9,6 +10,10 @@ void Scene::AddLine(Line* line)
 {
 	m_lines.push_back(line);
 }
+void Scene::AddTriangle(Triangle* triangle)
+{
+	m_triangles.push_back(triangle);
+}
 void Scene::Render(Texture &texture)
 {
 	if (!this->IsValid())
@@ -16,7 +21,7 @@ void Scene::Render(Texture &texture)
 		return;
 	}
 
-	m_cameras[m_CurrentCameraIndex]->Render(m_lines, texture);
+	m_cameras[m_CurrentCameraIndex]->Render(m_lines, m_triangles, texture);
 }
 
 void Scene::SetActiveCamera(int cameraIndex)

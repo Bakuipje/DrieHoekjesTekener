@@ -15,6 +15,7 @@
 #include "Color.h"
 #include "Scene.h"
 #include "Line.h"
+#include "Triangle.h"
 
 
 #define SCREEN_WIDTH 1280
@@ -92,10 +93,10 @@ int main(int argc, char* args[])
 
 	Camera* cam = new Camera(1.0f, SCREEN_WIDTH, SCREEN_HEIGHT, glm::mat4(1.0f));
 	scene->AddCamera(cam);
-	scene->AddLine(new Line(glm::vec3(1, 1, 0), glm::vec3(SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1, 0), Color(0,0,255), Color(255, 0, 0)));
-	scene->AddLine(new Line(glm::vec3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0), glm::vec3(SCREEN_WIDTH , SCREEN_HEIGHT /2, 0), Color(255, 0, 255), Color(0, 255, 0)));
-	scene->AddLine(new Line(glm::vec3(0, SCREEN_HEIGHT / 2, 0), glm::vec3(SCREEN_WIDTH/2, SCREEN_HEIGHT / 2, 0), Color(0, 255,255), Color(255, 0,255)));
-
+	//scene->AddLine(new Line(glm::vec3(1, 1, 0), glm::vec3(SCREEN_WIDTH - 1, SCREEN_HEIGHT - 1, 0), Color(0,0,255), Color(255, 0, 0)));
+	//scene->AddLine(new Line(glm::vec3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0), glm::vec3(SCREEN_WIDTH , SCREEN_HEIGHT /2, 0), Color(255, 0, 255), Color(0, 255, 0)));
+	//scene->AddLine(new Line(glm::vec3(0, SCREEN_HEIGHT / 2, 0), glm::vec3(SCREEN_WIDTH/2, SCREEN_HEIGHT / 2, 0), Color(0, 255,255), Color(255, 0,255)));
+	scene->AddTriangle(new Triangle(glm::vec3(SCREEN_WIDTH / 2, SCREEN_HEIGHT-10, 0), glm::vec3(SCREEN_WIDTH-10, SCREEN_HEIGHT / 2, 0), glm::vec3(10, 10, 0)));
 
 	glm::mat4 meshTransform = glm::mat4(1);
 	meshTransform = glm::rotate(0.785398f, glm::vec3(0, 1, 0));

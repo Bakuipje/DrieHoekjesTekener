@@ -2,6 +2,7 @@
 #include <glm/glm.hpp>
 
 #include "Color.h"
+#include "Texture.h"
 
 class Line
 {

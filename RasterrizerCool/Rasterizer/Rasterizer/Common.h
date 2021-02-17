@@ -3,7 +3,7 @@
 #include <glm/glm.hpp>
 #include <vector>
 
-std::vector<glm::vec2> interpolate(int x0, int y0, int x1, int y1)
+static std::vector<glm::vec2> interpolate(int x0, int y0, int x1, int y1)
 {
 	std::vector<glm::vec2> returnVector;
 	if (x0 == x1)

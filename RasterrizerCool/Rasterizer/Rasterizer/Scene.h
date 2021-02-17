@@ -3,6 +3,7 @@
 //#include "Object.h"
 //#include "Mesh.h"
 #include "Texture.h"
+#include "Triangle.h"
 #include "Line.h"
 #include <vector>
 
@@ -12,6 +13,7 @@ public:
 	Scene() {}
 	void AddCamera(Camera* camera);
 	//void AddObject(Object* object);
+	void AddTriangle(Triangle* triangle);
 	void AddLine(Line* Line);
 	void Render(Texture &texture);
 
@@ -26,6 +28,7 @@ private:
 
 	std::vector<Camera*> m_cameras;
 	std::vector<Line*> m_lines;
+	std::vector<Triangle*> m_triangles;
 	//std::vector<Object*> m_objects;
 	//std::vector<Light*> m_lights;
 };

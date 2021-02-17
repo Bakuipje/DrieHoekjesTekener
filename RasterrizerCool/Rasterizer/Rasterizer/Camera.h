@@ -3,6 +3,8 @@
 #include <vector>
 #include "Texture.h"
 #include "Line.h"
+#include "Triangle.h"
+
 
 
 
@@ -13,7 +15,7 @@ public:
 	{}
 	Camera(float planeDistance, int renderWidth, int renderHeight, glm::mat4 transform);
 	//void Render(Texture &texture);
-	void Render(std::vector<Line*> lines, Texture &texture);
+	void Render(std::vector<Line*> lines, std::vector<Triangle*> triangles,Texture &texture);
 	void SetRenderResolution(int width, int height);
 
 
