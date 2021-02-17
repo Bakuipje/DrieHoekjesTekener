@@ -1,3 +1,4 @@
+#include "Common.h"
 #include "Texture.h"
 #include "Line.h"
 
@@ -18,33 +19,30 @@ void Line::Render(Texture* texture)
 			std::swap(startColor, endColor);
 			std::swap(startPos, endPos);
 		}
-		float a = deltaY / deltaX;
-		float y = startPos.y;
 
 		glm::vec4 deltaColor = (startColor.Get() - endColor.Get()) / deltaX;
-		for (int i = 0; i < deltaX; i++)
+		std::vector<glm::vec2> linePixels = interpolate(startPos.x, startPos.y, endPos.x, endPos.y);
+		for (int i = 0; i < linePixels.size(); i++)
 		{
-			glm::vec4 test = startColor.Get()-deltaColor*(float)i;
-			Color pixelCol = Color( test);
-			texture->SetPixel(startPos.x + i, y, pixelCol);
-			y += a;
+			glm::vec4 test = startColor.Get() - deltaColor * (float)i;
+			Color pixelCol = Color(startColor.Get() - deltaColor * (float)i);
+			texture->SetPixel(linePixels[i].x , linePixels[i].y, pixelCol);
 		}
 	}
 	else
 	{
 		if (startPos.y > endPos.y)
-			std::swap(startPos, endPos);
-
-		float a = deltaX / deltaY;
-		float x = startPos.x;
-
-		glm::vec4 deltaColor = (startColor.Get() - endColor.Get()) / deltaX;
-		deltaColor = glm::abs(deltaColor);
-		for (int i = 0; i < deltaY; i++)
 		{
-			Color pixelCol = Color(startColor.Get() - (deltaColor*(float)i));
-			texture->SetPixel(x, startPos.y +1, pixelCol);
-			x += a;
+			std::swap(startColor, endColor);
+			std::swap(startPos, endPos);
+		}
+		glm::vec4 deltaColor = (startColor.Get() - endColor.Get()) / deltaX;
+		std::vector<glm::vec2> linePixels = interpolate(startPos.y, startPos.x, endPos.y, endPos.x);
+		for (int i = 0; i < linePixels.size(); i++)
+		{
+			glm::vec4 test = startColor.Get() - deltaColor * (float)i;
+			Color pixelCol = Color(startColor.Get() - deltaColor * (float)i);
+			texture->SetPixel(linePixels[i].x, linePixels[i].y, pixelCol);
 		}
 	}
 
