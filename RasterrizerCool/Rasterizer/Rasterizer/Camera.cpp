@@ -21,6 +21,7 @@ void Camera::Render(std::vector<Line*> lines, std::vector<Triangle*> triangles, 
 
 	for (auto &triangle : triangles)
 	{
+		triangle->Render(&texture);
 		triangle->RenderLine(&texture);
 	}
 
