@@ -24,32 +24,48 @@ void Triangle::Render(Texture* texture)
 	if (m_v2.y < m_v1.y)
 		std::swap(m_v2, m_v1);
 	// generate edge coordinates
-	std::vector<glm::vec2> edge01, edge02, edge12;
-	edge01 = interpolate(m_v0.y, m_v0.x, m_v1.y, m_v1.x);
-	edge02 = interpolate(m_v0.y, m_v0.x, m_v2.y, m_v2.x);
-	edge12 = interpolate(m_v1.y, m_v1.x, m_v2.y, m_v2.x);
+	std::vector<glm::vec2> edgeX01, edgeX02, edgeX12;
+	std::vector<glm::vec2> edgeZ01, edgeZ02, edgeZ12;
+	edgeX01 = interpolate(m_v0.y, m_v0.x, m_v1.y, m_v1.x);
+	edgeX02 = interpolate(m_v0.y, m_v0.x, m_v2.y, m_v2.x);
+	edgeX12 = interpolate(m_v1.y, m_v1.x, m_v2.y, m_v2.x);
+
+	edgeZ01 = interpolate(m_v0.y, m_v0.z, m_v1.y, m_v1.z);
+	edgeZ02 = interpolate(m_v0.y, m_v0.z, m_v2.y, m_v2.z);
+	edgeZ12 = interpolate(m_v1.y, m_v1.z, m_v2.y, m_v2.z);
 
 	// because we ordered the points the distance between v0.y-> v2.y is the same as the distance between v0.y ->v1.y ->v2.y
-	std::vector<glm::vec2>edge012( edge01);
-	std::copy(edge12.begin(), edge12.end(), std::back_inserter(edge012));
+	std::vector<glm::vec2>edgeX012( edgeX01);
+	std::copy(edgeX12.begin(), edgeX12.end(), std::back_inserter(edgeX012));
 
-	int midlepoint = edge012.size() / 2;
-	std::vector<glm::vec2> leftEdge, rightEdge;
+	std::vector<glm::vec2>edgeZ012(edgeZ01);
+	std::copy(edgeZ12.begin(), edgeZ12.end(), std::back_inserter(edgeZ012));
+
+	int midlepoint = edgeX012.size() / 2;
+	std::vector<glm::vec2> leftEdgeX, rightEdgeX;
+	std::vector<glm::vec2> leftEdgeZ, rightEdgeZ;
+
 	// check which edge is left and right (interpolate function returns coordinates flipped)
-	if (edge02[midlepoint].y < edge012[midlepoint].y)
+	if (edgeX02[midlepoint].y < edgeX012[midlepoint].y)
 	{
-		leftEdge = edge02;
-		rightEdge = edge012;
+		leftEdgeX = edgeX02;
+		rightEdgeX = edgeX012;
+		leftEdgeZ = edgeZ02;
+		rightEdgeZ = edgeZ012;
 	}
-	else {
-		leftEdge = edge012;
-		rightEdge = edge02;
-	}
-	for (int i = 0; i < leftEdge.size(); i++)
+	else 
 	{
-		for (int x = leftEdge[i].y; x < rightEdge[i].y; x++)
+		leftEdgeX = edgeX012;
+		rightEdgeX = edgeX02;
+		leftEdgeZ = edgeZ012;
+		rightEdgeZ = edgeZ02;
+	}
+	for (int i = 0; i < leftEdgeX.size(); i++)
+	{
+		for (int x = leftEdgeX[i].y; x < rightEdgeX[i].y; x++)
 		{
-			texture->SetPixel(x, leftEdge[i].x, Color(1,0,0));
+			glm::vec4 col = glm::vec4(1, 0, 0, 1)*leftEdgeZ[i].y;
+			texture->SetPixel(x, leftEdgeX[i].x, col);
 		}
 	}
 
